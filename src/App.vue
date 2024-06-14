@@ -1,3 +1,21 @@
+<script setup>
+import axios from 'axios'
+import Header from './components/Head.vue'
+import CardList from './components/CardList.vue'
+import { onMounted, ref } from 'vue'
+
+const items = ref([])
+
+onMounted(async () => {
+  try {
+    items.value = (await axios.get('https://80890f433358ae64.mokky.dev/items')).data
+    console.log(items)
+  } catch (error) {
+    console.warn(error)
+  }
+})
+</script>
+
 <template>
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-2xl mt-14">
     <!-- <Drawer /> -->
@@ -25,14 +43,9 @@
         </div>
       </div>
 
-      <CardList />
+      <div class="mt- 10">// <CardList :items="items" /></div>
     </div>
   </div>
 </template>
-
-<script setup>
-import Header from './components/Head.vue'
-import CardList from './components/CardList.vue'
-</script>
 
 <style lang="scss" scoped></style>
